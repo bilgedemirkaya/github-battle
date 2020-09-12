@@ -1,0 +1,31 @@
+{
+  "name": "reactapp",
+  "version": "1.0.0",
+  "description": "react learning",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "SET NODE_ENV='production' && webpack",
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bilgedemirkaya/github-battle.git"
+  },
+  "author": "bilge demirkaya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bilgedemirkaya/github-battle/issues"
+  },
+  "homepage": "https://github.com/bilgedemirkaya/github-battle#readme",
+  "devDependencies": {
+    "babel-loader": "^8.1.0",
+    "css-loader": "^4.3.0",
+    "html-webpack-plugin": "^4.4.1",
+    "style-loader": "^1.2.1",
+    "svg-inline-loader": "^0.8.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
