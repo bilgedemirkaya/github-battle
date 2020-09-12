@@ -57,9 +57,9 @@ index.js
     imports graph.js
     imports auth.js
       imports api.js
-      ```
+ ```
 If we give webpack the path to this entry file, it’ll use that to create the dependency graph of our application (much like we did above, except… better). To do that, you add an entry property to your webpack config which points to your entry file.
-
+```
 // webpack.config.js
 
 module.exports = {
@@ -69,7 +69,7 @@ Transformations with Loaders
 Now that webpack knows the entry file, the next thing we need to tell it is what transformations to run on our code. To do this, we’ll use what are called “loaders”.
 
 Out of the box, when webpack is building its dependency graph by examining all of your import/require() statements, it’s only able to process JavaScript and JSON files.
-```
+
 import auth from './api/auth' // 👍
 import config from './utils/config.json' // 👍
 import './styles.css' // ⁉️
@@ -81,7 +81,7 @@ The first step to adding any loader is to download it. Because we want to add th
 
 npm install svg-inline-loader --save-dev
 Next, we need to add it to our webpack config. All of the information for your loaders will go into an array of objects under module.rules.
-
+```
 // webpack.config.js
 
 module.exports = {
@@ -90,10 +90,11 @@ module.exports = {
     rules: []
   }
 }
+```
 Now there are two pieces of information we need to give webpack about each loader. First, the type of file we want to run the loader on (in our case, all .svg files). Second, the loader to use on that file type (in our case, svg-inline-loader).
 
 To do this, we’ll have an object with two properties, test and use. test will be a regex to match the file path and use will be the name of the loader we want to use.
-
+```
 // webpack.config.js
 
 module.exports = {
@@ -104,8 +105,9 @@ module.exports = {
     ]
   }
 }
+```
 Now anywhere in our app, we’ll be able to import .svg files. What about our .css files though? Let’s add a loader for that as well. We’ll use the css-loader.
-
+```
 npm install css-loader --save-dev
 // webpack.config.js
 
@@ -118,8 +120,9 @@ module.exports = {
     ]
   }
 }
+```
 Now anywhere in our app, we can import .svg and .css files. However, there’s still one more loader we need to add to get our styles to work properly. Right now, because of our css-loader, we’re able to import .css files. However, that doesn’t mean those styles are being injected into the DOM. What we really want to do is import a CSS file then have webpack put all of that CSS in a <style> tag in the DOM so they’re active on the page. To do that, we’ll use the style-loader.
-
+```
 npm install style-loader --save-dev
 // webpack.config.js
 
@@ -132,10 +135,11 @@ module.exports = {
     ]
   }
 }
+```
 Notice, because we now have two loaders for our .css rule, we change use to be an array. Also, notice that we have style-loader before css-loader. This is important. Webpack will process those in reverse order. So css-loader will interpret the import './styles.css' line then style-loader will inject that CSS into the DOM.
 
 As we just saw with style-loader, loaders can do more than just allow you to import certain file types. They’re also able to run transformations on files before they get added to the final output bundle. The most popular is transforming “next generation JavaScript” to the JavaScript of today that browsers can understand using Babel. To do this, you can use the babel-loader on every .js file.
-
+```
 npm install babel-loader --save-dev
 // webpack.config.js
 
@@ -149,3 +153,4 @@ module.exports = {
     ]
   }
 }
+```
