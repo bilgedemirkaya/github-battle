@@ -1,4 +1,6 @@
 **Why does webpack exist?**
+
+
 At its core, webpack is a module bundler. It examines all of the modules in your application, creates a dependency graph, then intelligently puts all of them together into one or more bundle(s) that your index.html file can reference.
 
 App.js --->     |         |
@@ -192,7 +194,7 @@ Now, how we do adjust our webpack config in order to utilize HtmlWebpackPlugin? 
 
 npm install html-webpack-plugin --save-dev
 Next, we add a plugins property which is an array to our webpack config.
-
+```
 // webpack.config.js
 
 const path = require('path')
@@ -236,9 +238,11 @@ module.exports = {
     new HtmlWebpackPlugin()
   ]
 }
-EnvironmentPlugin
-If you’re using React, you’ll want to set process.env.NODE_ENV to production before you deploy your code. This tells React to build in production mode which will strip out any developer features like warnings. Webpack makes this simple by providing a plugin called EnvironmentPlugin. It comes as part of the webpack namespace so you don’t need to download it.
+```
+**EnvironmentPlugin**
 
+If you’re using React, you’ll want to set process.env.NODE_ENV to production before you deploy your code. This tells React to build in production mode which will strip out any developer features like warnings. Webpack makes this simple by providing a plugin called EnvironmentPlugin. It comes as part of the webpack namespace so you don’t need to download it.
+```
 // webpack.config.js
 
 const path = require('path')
@@ -265,6 +269,7 @@ module.exports = {
     })
   ]
 }
+```
 Now, anywhere in our application, we’ll be able to tell if we’re running in production mode by using process.env.NODE_ENV.
 
 HtmlWebpackPlugin and EnvironmentPlugin are just a small taste of what you can do with webpack’s plugin system. Here’s a full list of officially supported plugins.
@@ -273,7 +278,7 @@ Mode
 Whenever you build your app for production, there are a few steps you want to take. We just learned about one of them which was setting process.env.NODE_ENV to production. Another would be minifying your code and stripping out comments to reduce the bundle size.
 
 Utilizing plugins for each one of these production tasks would work, but there’s a much easier way. In your webpack config, you can set the mode property to development or production depending on which environment you’re in.
-
+```
 // webpack.config.js
 
 const path = require('path')
@@ -297,18 +302,20 @@ module.exports = {
   ],
   mode: 'production'
 }
+```
 Notice we were able to get rid of our EnvironmentPlugin. The reason for that is by setting mode to production, webpack will automatically set process.env.NODE_ENV to production. It will also minify our code and strip out warnings.
 
 Running webpack
 At this point, we have a pretty solid grasp on how webpack works and how to configure it, the only other thing we need to do now is actually run it.
 
 Assuming you’re using npm and have a package.json file, you can create a script to execute webpack.
-
+```
 // package.json
 
 "scripts": {
   "build": "webpack"
 }
+```
 Now whenever you run npm run build from the command line, webpack will execute and create an optimized bundle named index_bundle.js and put it inside of the dist directory.
 
 Production vs Development Modes
@@ -323,11 +330,12 @@ npm run build will build our app for production.
 npm run start will start a development server which will automatically regenerate our bundle whenever we make a change to our code.
 
 If you’ll remember, we hardcoded mode to production inside of our webpack config. However, we only want to run in production mode when we run npm run build. If we run npm run start, we want mode set to development. To fix this, let’s adjust our scripts.build property in our package.json file to pass along an environment variable.
-
+```
 "scripts": {
   "build": "NODE_ENV='production' webpack",
 }
-If you’re on Windows, the command is a bit different: "SET NODE_ENV='production' && webpack"
+```
+If you’re on Windows, the command is a bit different: ```"SET NODE_ENV='production' && webpack"```
 
 Now, inside of our webpack config, we can toggle mode based on process.env.NODE_ENV.
 
@@ -346,11 +354,12 @@ As the name implies, webpack-dev-server is a development server for webpack. Ins
 
 As always, to use it we first need to install it.
 
-npm install webpack-dev-server --save-dev
+```npm install webpack-dev-server --save-dev```
 Then all we need to do is update our start script to run webpack-dev-server.
-
+```
 "scripts": {
   "build": "NODE_ENV='production' webpack",
   "start": "webpack-dev-server"
 }
+```
 Just like that, we have two commands, one for creating a development server and one for building our app for production.
