@@ -4,6 +4,7 @@ import { FaCompass, FaBriefcase, FaUsers, FaUserFriends, FaCode, FaUser } from '
 import Card from './Card'
 import PropTypes from 'prop-types'
 import Loading from './Loading'
+import queryString from 'query-string'
 
 function ProfileList ({ profile }) {
   return (
@@ -52,7 +53,7 @@ export default class Results extends React.Component{
         }
       }
     componentDidMount(){
-        const { playerOne,playerTwo } = this.props
+        const { playerOne,playerTwo } = queryString.parse(this.props.location.search) //took props from the url
         battle([playerOne,playerTwo])
         .then((players) => this.setState({
             winner:players[0],

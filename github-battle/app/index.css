@@ -249,3 +249,9 @@ li{
   background: #292929;
   color: #4a4a4a;
 }
+.nav li {
+  margin-right: 10px;
+}
+.space-between {
+  justify-content: space-between;
+}

@@ -3,6 +3,7 @@ import {FaUserFriends , FaFighterJet, FaTrophy,FaTimesCircle} from 'react-icons/
 import Proptypes from 'prop-types'
 import Results from '../components/Results.js'
 import {ThemeConsumer} from '../contexts/theme'
+import {Link} from 'react-router-dom'
 
 function Instructions(){
     return(
@@ -135,7 +136,6 @@ export default class Battle extends React.Component {
         this.state = {
             playerOne : null,
             playerTwo : null,
-            battle: false
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.onReset = this.onReset.bind(this)
@@ -151,22 +151,7 @@ export default class Battle extends React.Component {
         })
     }
     render() {
-        const {playerOne,playerTwo,battle} = this.state
-        if (battle === true) {
-            return(
-                <React.Fragment>
-                    <Results 
-                    playerOne = {playerOne}
-                    playerTwo = {playerTwo}
-                    />
-                <button className='btn dark-btn btn-space'
-                 onClick={()=>this.setState({battle:false,playerOne:null,playerTwo:null})}> 
-                 Reset 
-                 </button> 
-                </React.Fragment>
-            )
-        }
-
+        const {playerOne,playerTwo} = this.state
         return(
             <React.Fragment>
                 <Instructions />
@@ -193,10 +178,12 @@ export default class Battle extends React.Component {
                  />}
                  </div>
                  {playerOne && playerTwo && 
-                 <button className='btn dark-btn btn-space'
-                 onClick={()=>this.setState({battle:true})}> 
-                 Battle 
-                 </button> }
+                 <Link className='btn dark-btn btn-space'
+                 to={{
+                pathname: '/battle/results',
+                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`
+                 }}>Battle
+                 </Link> }
                  </div>
             </React.Fragment>
         )

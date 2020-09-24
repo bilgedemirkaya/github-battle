@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "build": "SET NODE_ENV='production' && webpack"
   },
   "babel": {
     "presets": [
@@ -16,12 +17,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "query-string": "^6.13.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-icons": "^3.11.0"
+    "react-icons": "^3.11.0",
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
